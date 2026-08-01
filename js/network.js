@@ -95,9 +95,9 @@ export class NetworkManager {
                 break;
             case 'NEW_GAME':
                 if (this._app._state === 'idle' || this._app._state === 'finished') {
-                    $('#btn-new-game').click();
+                    this._app.newGame(true);
                 } else if (this._app._state === 'playing' || this._app._state === 'paused') {
-                    $('#btn-reset').click();
+                    this._app.reset(true);
                 }
                 break;
             case 'SYNC_REQUEST':
