@@ -5,7 +5,7 @@
    móvil controle el juego.
    ============================================================ */
 
-import { $, uniqueId, getLetterForNumber } from './helpers.js';
+import { $, uniqueId, getLetterForNumber } from './helpers.js?v=4';
 
 export class NetworkManager {
     constructor(appInstance) {
