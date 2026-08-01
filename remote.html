@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <!-- Viewport adaptado para móviles (sin zoom) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0A0A0A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>🎱 Remoto — Tómbola</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Manrope:wght@700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/remote.css">
+</head>
+<body>
+    <div id="remote-app">
+        <!-- HEADER -->
+        <header class="remote-header">
+            <div class="remote-brand">
+                <span>🎱</span> TÓMBOLA <span class="brand-accent">REMOTE</span>
+            </div>
+            <div id="connection-status" class="status-badge status-badge--idle">
+                <span class="status-dot"></span>
+                <span id="status-text">Conectando...</span>
+            </div>
+        </header>
+
+        <!-- MAIN INFO -->
+        <main class="remote-main">
+            <!-- DISPLAY ÚLTIMO NÚMERO -->
+            <div class="remote-display" id="remote-display">
+                <div class="display-label">ÚLTIMO NÚMERO</div>
+                <div class="display-value" id="display-value">--</div>
+            </div>
+
+            <!-- CONTROLES -->
+            <div class="remote-controls">
+                <button id="btn-next" class="btn btn-giant btn-primary" disabled>
+                    <div class="btn-glow"></div>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                    <span>SIGUIENTE NÚMERO</span>
+                </button>
+
+                <div class="secondary-controls">
+                    <button id="btn-new-game" class="btn btn-secondary" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        <span>Nuevo Juego</span>
+                    </button>
+                    <button id="btn-sync" class="btn btn-secondary" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STATS -->
+            <div class="remote-stats">
+                <div class="stat-box">
+                    <div class="stat-label">Extraídas</div>
+                    <div class="stat-value" id="stat-drawn">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Restantes</div>
+                    <div class="stat-value" id="stat-remaining">75</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ERROR OVERLAY -->
+    <div id="error-overlay" class="overlay hidden">
+        <div class="overlay-content">
+            <svg class="icon-error" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <h2>Error de Conexión</h2>
+            <p id="error-message">No se pudo conectar a la sala.</p>
+            <button onclick="window.location.reload()" class="btn btn-primary" style="margin-top: 20px;">Reintentar</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script type="module" src="js/remote.js"></script>
+</body>
+</html>

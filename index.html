@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <!-- ============================================================
+         TÓMBOLA DE BINGO — Software Profesional de Bingo
+         Versión: 2.0.0
+         Estilo: Casino / Billar / Premium
+    ============================================================ -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Software profesional de Tómbola de Bingo — estilo casino premium con animaciones fluidas y diseño elegante.">
+    <meta name="theme-color" content="#0A0A0A">
+    <meta name="color-scheme" content="dark light">
+
+    <title>🎱 Tómbola de Bingo — Professional</title>
+
+    <!-- ==================== TIPOGRAFÍAS ==================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- ==================== ESTILOS ==================== -->
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- ==================== FAVICON ==================== -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎱</text></svg>">
+</head>
+<body>
+    <!-- ============================================================
+         OVERLAY DE PARTÍCULAS
+    ============================================================ -->
+    <canvas id="particles-canvas" class="particles-overlay" aria-hidden="true"></canvas>
+
+    <!-- ============================================================
+         FONDO AMBIENTAL
+    ============================================================ -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="ambient-glow ambient-glow--1"></div>
+        <div class="ambient-glow ambient-glow--2"></div>
+    </div>
+
+    <!-- ============================================================
+         APP
+    ============================================================ -->
+    <div id="app" class="app-container">
+
+        <!-- ==================== HEADER ==================== -->
+        <header id="app-header" class="app-header">
+            <div class="header-left">
+                <div class="header-brand">
+                    <span class="brand-icon" aria-hidden="true">🎱</span>
+                    <h1 class="brand-title">TÓMBOLA <span class="brand-accent">DE BINGO</span></h1>
+                </div>
+                <div id="game-status-badge" class="status-badge status-badge--idle">
+                    <span class="status-dot"></span>
+                    <span id="game-status-text" class="status-text">Sin iniciar</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div id="clock-display" class="header-clock" aria-label="Hora actual">
+                    <svg class="icon icon--small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span id="clock-time">00:00:00</span>
+                </div>
+                <div class="header-actions">
+                    <button id="btn-sound-toggle" class="btn-icon" title="Sonido (M)" aria-label="Toggle sonido">
+                        <svg id="icon-sound-on" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+                        <svg id="icon-sound-off" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+                    </button>
+                    <button id="btn-theme-toggle" class="btn-icon" title="Tema (T)" aria-label="Cambiar tema">
+                        <svg id="icon-theme-dark" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <svg id="icon-theme-light" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                    </button>
+                    <button id="btn-fullscreen" class="btn-icon" title="Fullscreen (F11)" aria-label="Pantalla completa">
+                        <svg id="icon-fullscreen-enter" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                        <svg id="icon-fullscreen-exit" class="icon hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="14" y1="10" x2="21" y2="3"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+                    </button>
+                    <button id="btn-help" class="btn-icon" title="Ayuda (H)" aria-label="Ayuda">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+        <main id="app-main" class="app-main">
+
+            <!-- ========== COLUMNA IZQUIERDA ========== -->
+            <section class="main-left" aria-label="Tómbola y controles">
+
+                <!-- ÚLTIMO NÚMERO — PROTAGONISTA -->
+                <div id="last-number-panel" class="panel panel--last-number">
+                    <div class="panel-header">
+                        <span class="panel-label">ÚLTIMO NÚMERO</span>
+                    </div>
+                    <div class="last-number-display">
+                        <span id="last-number-letter" class="last-number-letter" aria-label="Letra">—</span>
+                        <span id="last-number-value" class="last-number-value" aria-label="Número">—</span>
+                    </div>
+                    <div class="last-number-glow-ring" aria-hidden="true"></div>
+                </div>
+
+                <!-- TÓMBOLA -->
+                <div id="tombola-container" class="panel panel--tombola">
+                    <canvas id="tombola-canvas" class="tombola-canvas" aria-label="Tómbola animada">Tu navegador no soporta Canvas.</canvas>
+                    <div id="extracted-ball" class="extracted-ball hidden" aria-live="polite">
+                        <span id="extracted-ball-letter" class="extracted-ball-letter"></span>
+                        <span id="extracted-ball-number" class="extracted-ball-number"></span>
+                    </div>
+                </div>
+
+                <!-- STATS -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <span class="stat-label">Extraídas</span>
+                        <span id="stat-drawn" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Restantes</span>
+                        <span id="stat-remaining" class="stat-value">75</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Tiempo</span>
+                        <span id="stat-timer" class="stat-value stat-value--mono">00:00</span>
+                    </div>
+                </div>
+
+                <!-- CONTROLES -->
+                <div class="controls-panel">
+                    <div class="controls-primary">
+                        <button id="btn-next-number" class="btn btn--primary btn--large" disabled aria-label="Siguiente número">
+                            <span class="btn-glow"></span>
+                            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                            <span>Siguiente Número</span>
+                        </button>
+                    </div>
+                    <div class="controls-secondary">
+                        <button id="btn-remote" class="btn btn--secondary" title="Vincular Celular"><svg class="icon icon--small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg><span>Remoto</span></button>
+                        <button id="btn-new-game" class="btn btn--accent"><svg class="icon icon--small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Nuevo Juego</span></button>
+                        <button id="btn-pause" class="btn btn--secondary hidden"><svg class="icon icon--small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg><span>Pausar</span></button>
+                        <button id="btn-resume" class="btn btn--secondary hidden"><svg class="icon icon--small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Reanudar</span></button>
+                        <button id="btn-shuffle" class="btn btn--secondary hidden"><svg class="icon icon--small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg><span>Mezclar</span></button>
+                        <button id="btn-reset" class="btn btn--danger hidden"><svg class="icon icon--small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg><span>Reiniciar</span></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== COLUMNA CENTRAL: GRID ========== -->
+            <section class="main-center" aria-label="Cuadrícula de números">
+                <div id="bingo-grid" class="panel panel--grid">
+                    <div class="grid-header">
+                        <span class="grid-letter grid-letter--B">B</span>
+                        <span class="grid-letter grid-letter--I">I</span>
+                        <span class="grid-letter grid-letter--N">N</span>
+                        <span class="grid-letter grid-letter--G">G</span>
+                        <span class="grid-letter grid-letter--O">O</span>
+                    </div>
+                    <div id="grid-body" class="grid-body">
+                        <!-- 75 celdas generadas por ui.js -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== COLUMNA DERECHA: HISTORIAL ========== -->
+            <aside class="main-right" aria-label="Historial">
+                <div id="history-panel" class="panel panel--history">
+                    <div class="panel-header">
+                        <h2 class="panel-title">
+                            <svg class="icon icon--small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                            Historial
+                        </h2>
+                        <span id="history-count" class="badge">0</span>
+                    </div>
+                    <div id="history-list" class="history-list">
+                        <div id="history-empty" class="history-empty">
+                            <svg class="icon icon--large" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                            <p>Inicia un juego para ver el historial</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer id="app-footer" class="app-footer">
+            <span class="footer-text">Tómbola de Bingo v2.0</span>
+            <span class="footer-sep">·</span>
+            <span class="footer-text"><kbd>Espacio</kbd> extraer</span>
+            <span class="footer-sep">·</span>
+            <span class="footer-text"><kbd>H</kbd> ayuda</span>
+        </footer>
+    </div>
+
+    <!-- ==================== MODAL AYUDA ==================== -->
+    <div id="modal-help" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-help-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-help-title" class="modal-title">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Ayuda
+                </h2>
+                <button id="btn-modal-close" class="btn-icon btn-icon--close" aria-label="Cerrar"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+            <div class="modal-body">
+                <div class="help-section">
+                    <h3 class="help-section-title">Cómo jugar</h3>
+                    <ol class="help-list">
+                        <li>Presiona <strong>Nuevo Juego</strong> para iniciar.</li>
+                        <li>Presiona <strong>Siguiente Número</strong> o <kbd>Espacio</kbd> para extraer.</li>
+                        <li>La tómbola girará y mostrará el número con animación.</li>
+                        <li>Los números se marcan en la cuadrícula B-I-N-G-O.</li>
+                        <li>El historial registra cada extracción.</li>
+                        <li>Al extraer las 75 bolas, el juego termina.</li>
+                    </ol>
+                </div>
+                <div class="help-section">
+                    <h3 class="help-section-title">Atajos de teclado</h3>
+                    <div class="shortcuts-grid">
+                        <div class="shortcut-item"><kbd>Espacio</kbd><span>Extraer número</span></div>
+                        <div class="shortcut-item"><kbd>F11</kbd><span>Pantalla completa</span></div>
+                        <div class="shortcut-item"><kbd>Esc</kbd><span>Salir / Cerrar</span></div>
+                        <div class="shortcut-item"><kbd>N</kbd><span>Nuevo juego</span></div>
+                        <div class="shortcut-item"><kbd>P</kbd><span>Pausar / Reanudar</span></div>
+                        <div class="shortcut-item"><kbd>M</kbd><span>Sonido</span></div>
+                        <div class="shortcut-item"><kbd>T</kbd><span>Tema</span></div>
+                        <div class="shortcut-item"><kbd>H</kbd><span>Ayuda</span></div>
+                    </div>
+                </div>
+                <div class="help-section">
+                    <h3 class="help-section-title">Distribución</h3>
+                    <div class="help-bingo-table">
+                        <div class="help-bingo-col help-bingo-col--B"><span class="help-bingo-letter">B</span><span class="help-bingo-range">1–15</span></div>
+                        <div class="help-bingo-col help-bingo-col--I"><span class="help-bingo-letter">I</span><span class="help-bingo-range">16–30</span></div>
+                        <div class="help-bingo-col help-bingo-col--N"><span class="help-bingo-letter">N</span><span class="help-bingo-range">31–45</span></div>
+                        <div class="help-bingo-col help-bingo-col--G"><span class="help-bingo-letter">G</span><span class="help-bingo-range">46–60</span></div>
+                        <div class="help-bingo-col help-bingo-col--O"><span class="help-bingo-letter">O</span><span class="help-bingo-range">61–75</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="btn-modal-ok" class="btn btn--primary">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL CONFIRMACIÓN ==================== -->
+    <div id="modal-confirm" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-confirm-title">
+        <div class="modal-content modal-content--small">
+            <div class="modal-header">
+                <h2 id="modal-confirm-title" class="modal-title">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    Confirmación
+                </h2>
+            </div>
+            <div class="modal-body">
+                <p id="modal-confirm-message" class="confirm-message">¿Estás seguro?</p>
+            </div>
+            <div class="modal-footer modal-footer--split">
+                <button id="btn-confirm-cancel" class="btn btn--secondary">Cancelar</button>
+                <button id="btn-confirm-ok" class="btn btn--danger">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MODAL CÓDIGO QR (REMOTO) ==================== -->
+    <div id="modal-qr" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-qr-title">
+        <div class="modal-content modal-content--small">
+            <div class="modal-header">
+                <h2 id="modal-qr-title" class="modal-title">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    Vincular Celular
+                </h2>
+                <button id="btn-modal-qr-close" class="btn-icon btn-icon--close" aria-label="Cerrar"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p class="confirm-message" style="margin-bottom: var(--space-4);">Escanea este código con la cámara de tu celular para usarlo como control remoto.</p>
+                <div id="qr-container" style="background: white; padding: 16px; display: inline-block; border-radius: var(--radius-md); margin-bottom: var(--space-4);"></div>
+                <div class="status-badge status-badge--idle" id="remote-status-badge" style="justify-content: center; width: max-content; margin: 0 auto;">
+                    <span class="status-dot"></span>
+                    <span id="remote-status-text" class="status-text">Esperando conexión...</span>
+                </div>
+                <p style="margin-top: var(--space-4); font-size: 11px; color: var(--color-text-tertiary);">También puedes visitar el link manualmente:<br><a href="#" id="remote-link" target="_blank" style="color: var(--color-gold); word-break: break-all;"></a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST ==================== -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- ==================== GAME OVER ==================== -->
+    <div id="game-over-overlay" class="game-over-overlay hidden" aria-live="assertive">
+        <div class="game-over-content">
+            <div class="game-over-icon">🎉</div>
+            <h2 class="game-over-title">¡NO QUEDAN MÁS BOLAS!</h2>
+            <p class="game-over-subtitle">Se han extraído las 75 bolas</p>
+            <div class="game-over-stats">
+                <div class="game-over-stat">
+                    <span class="game-over-stat-label">Tiempo total</span>
+                    <span id="game-over-time" class="game-over-stat-value">00:00:00</span>
+                </div>
+            </div>
+            <button id="btn-game-over-new" class="btn btn--primary btn--large">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                <span>Juego Nuevo</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== LIBRERÍAS EXTERNAS ==================== -->
+    <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

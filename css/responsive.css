@@ -1,0 +1,242 @@
+/* ============================================================
+   RESPONSIVE.CSS — Responsive Layout & Grid Fix
+   ============================================================
+   Breakpoints:
+   - 0-639px:   Mobile (single column, stacked)
+   - 640-899px: Tablet (2 columns)
+   - 900-1279px: Desktop (3 columns, compact)
+   - 1280+:     Desktop (3 columns, full)
+   - 1920+:     Full HD enhancements
+   - 2560+:     2K / 4K enhancements
+   ============================================================ */
+
+
+/* ==================== BASE: Mobile First ==================== */
+@media (max-width: 639px) {
+    :root {
+        --header-height: 3rem;
+        --last-number-size: var(--text-5xl);
+        --grid-gap: 2px;
+    }
+
+    .app-main {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-2);
+        padding: var(--space-2);
+        height: auto;
+        overflow-y: auto;
+    }
+
+    .main-left, .main-center, .main-right {
+        width: 100%;
+        overflow: visible;
+    }
+
+    .main-right { max-height: 260px; }
+
+    /* Last number smaller on mobile */
+    .last-number-display {
+        padding: var(--space-4); min-height: 120px;
+    }
+
+    /* Grid must fit on screen */
+    .panel--grid { min-height: 350px; }
+    .grid-letter { font-size: var(--text-lg); padding: var(--space-1) 0; }
+    .grid-cell-number { font-size: 11px; }
+    .grid-cell--last .grid-cell-number { font-size: 12px; }
+
+    /* Stats compact */
+    .stat-value { font-size: var(--text-xl); }
+    .stat-value--mono { font-size: var(--text-base); }
+
+    /* Buttons stack */
+    .controls-secondary { flex-direction: column; }
+    .controls-secondary .btn { width: 100%; }
+
+    /* Header compact */
+    .brand-title { font-size: 10px; }
+    .header-clock { display: none; }
+
+    /* History compact items */
+    .history-item { grid-template-columns: 28px 1fr auto; padding: 5px var(--space-2); }
+
+    /* Shortcuts single column */
+    .shortcuts-grid { grid-template-columns: 1fr; }
+
+    /* Footer compact */
+    .app-footer { gap: var(--space-2); }
+    .footer-text:not(:first-child) { display: none; }
+    .footer-sep:not(:first-of-type) { display: none; }
+}
+
+
+/* ==================== Tablet ==================== */
+@media (min-width: 640px) and (max-width: 899px) {
+    :root {
+        --last-number-size: var(--text-6xl);
+        --grid-gap: 2px;
+    }
+
+    .app-main {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    .main-left {
+        grid-column: 1 / -1;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .panel--last-number { flex: 1; min-width: 200px; }
+    .panel--tombola { flex: 1; min-width: 200px; min-height: 200px; }
+    .stats-row { flex: 0 0 100%; }
+    .controls-panel { flex: 0 0 100%; }
+
+    .main-center { grid-column: 1; }
+    .main-right { grid-column: 2; }
+
+    .panel--grid { min-height: 400px; }
+
+    .grid-letter { font-size: var(--text-xl); }
+}
+
+
+/* ==================== Desktop Compact ==================== */
+@media (min-width: 900px) and (max-width: 1279px) {
+    :root {
+        --last-number-size: var(--text-7xl);
+        --history-width: 220px;
+    }
+
+    .app-main {
+        grid-template-columns: minmax(230px, 1fr) minmax(250px, 1.3fr) var(--history-width);
+    }
+
+    .grid-letter { font-size: var(--text-xl); }
+}
+
+
+/* ==================== Desktop Full ==================== */
+@media (min-width: 1280px) {
+    :root {
+        --last-number-size: var(--text-8xl);
+        --history-width: 260px;
+    }
+}
+
+
+/* ==================== Full HD ==================== */
+@media (min-width: 1920px) {
+    :root {
+        --last-number-size: var(--text-9xl);
+        --history-width: 300px;
+    }
+
+    .app-main {
+        grid-template-columns: minmax(300px, 1.2fr) minmax(340px, 1.4fr) var(--history-width);
+        gap: var(--space-4);
+        padding: var(--space-4);
+    }
+
+    .grid-letter { font-size: var(--text-3xl); }
+    .grid-cell-number { font-size: clamp(12px, 1vw, 16px); }
+    .grid-cell--last .grid-cell-number { font-size: clamp(13px, 1.1vw, 18px); }
+
+    .stat-value { font-size: var(--text-3xl); }
+
+    .last-number-display { min-height: 200px; }
+}
+
+
+/* ==================== 2K ==================== */
+@media (min-width: 2560px) {
+    :root {
+        --last-number-size: 12rem;
+        --header-height: 3.5rem;
+        --footer-height: 2rem;
+        --grid-gap: 4px;
+    }
+
+    html { font-size: 18px; }
+
+    .grid-letter { font-size: var(--text-4xl); }
+    .grid-cell { border-radius: var(--radius-md); }
+    .grid-cell-number { font-size: 16px; }
+}
+
+
+/* ==================== 4K ==================== */
+@media (min-width: 3840px) {
+    :root {
+        --last-number-size: 16rem;
+        --grid-gap: 5px;
+    }
+
+    html { font-size: 22px; }
+
+    .grid-cell { border-radius: var(--radius-lg); }
+    .grid-cell-number { font-size: 20px; }
+    .grid-letter { font-size: var(--text-5xl); }
+}
+
+
+/* ==================== Ultrawide ==================== */
+@media (min-aspect-ratio: 21/9) and (min-width: 2560px) {
+    .app-main {
+        grid-template-columns: minmax(320px, 1.2fr) minmax(400px, 1.6fr) 320px;
+        max-width: 2200px; margin: 0 auto;
+    }
+}
+
+
+/* ==================== Landscape on small screens ==================== */
+@media (max-height: 500px) and (orientation: landscape) {
+    :root {
+        --header-height: 2.5rem;
+        --footer-height: 1.5rem;
+        --last-number-size: var(--text-4xl);
+    }
+
+    .app-main {
+        grid-template-columns: minmax(200px, 1fr) minmax(220px, 1.3fr) 180px;
+    }
+
+    .last-number-display { padding: var(--space-2); min-height: 80px; }
+    .panel--tombola { min-height: 100px; }
+    .stats-row { display: none; } /* Hide stats on very short screens */
+    .grid-header { padding: var(--space-1) var(--space-2); }
+    .grid-body { padding: 0 var(--space-2) var(--space-1); }
+    .grid-letter { font-size: var(--text-base); padding: 2px 0; }
+}
+
+
+/* ==================== Print ==================== */
+@media print {
+    .ambient-bg, .particles-overlay, .app-header, .app-footer,
+    .controls-panel, .panel--tombola, .extracted-ball,
+    .toast-container, .game-over-overlay, .modal-overlay {
+        display: none !important;
+    }
+
+    body { background: #FFF; color: #000; }
+
+    .app-container {
+        display: block; min-height: auto;
+    }
+
+    .app-main {
+        display: block; height: auto;
+    }
+
+    .panel {
+        background: none; backdrop-filter: none;
+        border: 1px solid #CCC; box-shadow: none;
+        break-inside: avoid; margin-bottom: 1rem;
+    }
+
+    .grid-cell { border: 1px solid #DDD; }
+    .grid-cell--drawn { background: #E0E0E0 !important; }
+    .grid-cell--drawn .grid-cell-number { color: #000; }
+    .grid-cell--last { background: #FFE082 !important; border-color: #F9A825; }
+}

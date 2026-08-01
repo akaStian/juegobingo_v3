@@ -1,0 +1,203 @@
+/* ============================================================
+   ANIMATIONS.CSS — Casino Premium Animations
+   ============================================================ */
+
+/* ==================== KEYFRAMES ==================== */
+
+/* Fade */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+/* Slide */
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(24px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-24px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Scale */
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+}
+@keyframes scalePop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+@keyframes scaleBounceIn {
+    0%   { opacity: 0; transform: scale(0.3); }
+    50%  { opacity: 1; transform: scale(1.1); }
+    70%  { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+/* Number reveal */
+@keyframes numberReveal {
+    0%   { opacity: 0; transform: scale(0.4); filter: blur(12px); }
+    60%  { opacity: 1; transform: scale(1.08); filter: blur(0); }
+    80%  { transform: scale(0.96); }
+    100% { transform: scale(1); filter: blur(0); }
+}
+
+/* Glow effects */
+@keyframes glowPulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(var(--color-gold-rgb), 0.15);
+    }
+    50% {
+        box-shadow: 0 0 35px rgba(var(--color-gold-rgb), 0.35),
+                    0 0 60px rgba(var(--color-gold-rgb), 0.1);
+    }
+}
+@keyframes glowBorder {
+    0%, 100% {
+        border-color: rgba(var(--color-gold-rgb), 0.2);
+        box-shadow: inset 0 0 20px rgba(var(--color-gold-rgb), 0.03);
+    }
+    50% {
+        border-color: rgba(var(--color-gold-rgb), 0.4);
+        box-shadow: inset 0 0 30px rgba(var(--color-gold-rgb), 0.06);
+    }
+}
+
+/* Grid cell mark */
+@keyframes cellMark {
+    0%   { background-color: rgba(var(--color-success-rgb), 0); transform: scale(1); }
+    40%  { background-color: rgba(var(--color-success-rgb), 0.25); transform: scale(1.18); }
+    100% { background-color: rgba(var(--color-success-rgb), 0.15); transform: scale(1); }
+}
+@keyframes cellMarkGold {
+    0%   { background-color: rgba(var(--color-gold-rgb), 0); transform: scale(1); }
+    30%  { transform: scale(1.2); }
+    60%  { background-color: rgba(var(--color-gold-rgb), 0.3); }
+    100% { background-color: rgba(var(--color-gold-rgb), 0.2); transform: scale(1.06); }
+}
+
+/* Ball spin */
+@keyframes ballSpin {
+    0%   { transform: translate(-50%, -50%) rotate(0deg) scale(0); opacity: 0; }
+    40%  { transform: translate(-50%, -50%) rotate(360deg) scale(0.6); opacity: 1; }
+    70%  { transform: translate(-50%, -50%) rotate(540deg) scale(1.15); }
+    85%  { transform: translate(-50%, -50%) rotate(690deg) scale(0.95); }
+    100% { transform: translate(-50%, -50%) rotate(720deg) scale(1); opacity: 1; }
+}
+
+/* Gentle floating */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+}
+
+/* Shimmer / shine effect */
+@keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+/* Ambient glow drift */
+@keyframes ambientDrift1 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+    25%      { transform: translate(40px, 30px) scale(1.05); opacity: 0.25; }
+    50%      { transform: translate(20px, 60px) scale(0.95); opacity: 0.3; }
+    75%      { transform: translate(-20px, 30px) scale(1.02); opacity: 0.2; }
+}
+@keyframes ambientDrift2 {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+    33%      { transform: translate(-30px, -20px) scale(1.05); opacity: 0.2; }
+    66%      { transform: translate(20px, -40px) scale(0.97); opacity: 0.25; }
+}
+
+/* Toast slide in */
+@keyframes toastSlideIn {
+    from { opacity: 0; transform: translateX(100%); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes toastSlideOut {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(100%); }
+}
+
+
+/* ==================== UTILITY CLASSES ==================== */
+.anim-fade-in       { animation: fadeIn var(--duration-normal) var(--ease-out) both; }
+.anim-slide-in-up   { animation: slideInUp var(--duration-slow) var(--ease-out) both; }
+.anim-slide-in-down { animation: slideInDown var(--duration-slow) var(--ease-out) both; }
+.anim-slide-in-right{ animation: slideInRight var(--duration-slow) var(--ease-out) both; }
+.anim-scale-in      { animation: scaleIn var(--duration-slow) var(--ease-spring) both; }
+.anim-scale-pop     { animation: scalePop var(--duration-slow) var(--ease-spring); }
+.anim-number-reveal { animation: numberReveal 500ms var(--ease-spring) both; }
+.anim-glow-pulse    { animation: glowPulse 2.5s ease-in-out infinite; }
+.anim-glow-border   { animation: glowBorder 3s ease-in-out infinite; }
+.anim-float         { animation: float 4s ease-in-out infinite; }
+
+
+/* ==================== STAGGERED DELAYS ==================== */
+.delay-1 { animation-delay: 50ms; }
+.delay-2 { animation-delay: 100ms; }
+.delay-3 { animation-delay: 150ms; }
+.delay-4 { animation-delay: 200ms; }
+.delay-5 { animation-delay: 250ms; }
+
+
+/* ==================== AMBIENT GLOWS ==================== */
+.ambient-glow--1 { animation: ambientDrift1 25s ease-in-out infinite; }
+.ambient-glow--2 { animation: ambientDrift2 30s ease-in-out infinite; }
+
+
+/* ==================== ACTIVE STATE ANIMATIONS ==================== */
+
+/* Last number panel glows when a number is displayed */
+.panel--last-number:has(.last-number-display[data-letter]) .last-number-glow-ring {
+    animation: glowBorder 3s ease-in-out infinite;
+}
+
+/* Stats value bounce on update — applied via JS */
+.stat-value.anim-bounce {
+    animation: scalePop 300ms var(--ease-spring);
+}
+
+
+/* ==================== GPU OPTIMIZATION ==================== */
+.extracted-ball,
+.tombola-canvas,
+.particles-overlay,
+.ambient-glow,
+.grid-cell--last {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+
+/* ==================== PREFERS REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .ambient-glow { display: none; }
+
+    .grid-cell--last { transform: none; }
+
+    .btn:hover { transform: none; }
+}
