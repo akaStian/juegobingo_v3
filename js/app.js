@@ -8,16 +8,16 @@
    States: idle → playing → paused/extracting → finished
    ============================================================ */
 
-import { $, getCurrentTimeFormatted } from './helpers.js';
-import { NumberGenerator } from './numbers.js';
-import { GameTimer } from './timer.js';
-import { FullscreenManager } from './fullscreen.js';
-import { SoundManager } from './sound.js';
-import { ParticleSystem } from './effects.js';
-import { AnimationEngine } from './animation.js';
-import { TombolaRenderer } from './tombola.js';
-import { UIManager } from './ui.js';
-import { NetworkManager } from './network.js';
+import { $, getCurrentTimeFormatted } from './helpers.js?v=4';
+import { NumberGenerator } from './numbers.js?v=4';
+import { GameTimer } from './timer.js?v=4';
+import { FullscreenManager } from './fullscreen.js?v=4';
+import { SoundManager } from './sound.js?v=4';
+import { ParticleSystem } from './effects.js?v=4';
+import { AnimationEngine } from './animation.js?v=4';
+import { TombolaRenderer } from './tombola.js?v=4';
+import { UIManager } from './ui.js?v=4';
+import { NetworkManager } from './network.js?v=4';
 
 
 /**
