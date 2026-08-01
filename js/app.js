@@ -315,9 +315,9 @@ class BingoApp {
     /**
      * Inicia un nuevo juego
      */
-    async newGame() {
+    async newGame(skipConfirm = false) {
         // Si hay un juego en curso, pedir confirmación
-        if (this._state === 'playing' || this._state === 'paused') {
+        if (!skipConfirm && (this._state === 'playing' || this._state === 'paused')) {
             const confirmed = await this._ui.showConfirm(
                 '¿Iniciar un nuevo juego? Se perderá el progreso actual.'
             );
@@ -411,13 +411,15 @@ class BingoApp {
     /**
      * Reinicia el juego
      */
-    async reset() {
+    async reset(skipConfirm = false) {
         if (this._state === 'idle') return;
 
-        const confirmed = await this._ui.showConfirm(
-            '¿Reiniciar el juego? Se perderá todo el progreso.'
-        );
-        if (!confirmed) return;
+        if (!skipConfirm) {
+            const confirmed = await this._ui.showConfirm(
+                '¿Reiniciar el juego? Se perderá todo el progreso.'
+            );
+            if (!confirmed) return;
+        }
 
         this._numbers.reset();
         this._timer.reset();
